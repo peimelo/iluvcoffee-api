@@ -63,13 +63,16 @@ export class CoffeesService {
       flavors,
     });
     if (!coffee) {
-      throw new NotFoundException(`Coffee #{id} not found`);
+      throw new NotFoundException(`Coffee #${id} not found`);
     }
     return this.coffeeRepository.save(coffee);
   }
 
   async remove(id: string) {
     const coffee = await this.coffeeRepository.findOne(id);
+    if (!coffee) {
+      throw new NotFoundException(`Coffee #${id} not found`);
+    }
     return this.coffeeRepository.remove(coffee);
   }
 
